@@ -1,1 +1,8 @@
-/bin/
+bin/
+target/
+*.class
+
+data/*.bin
+data/*.key
+data/*.txt
+!data/.gitkeep
