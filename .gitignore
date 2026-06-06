@@ -1,8 +1,30 @@
+# ===== 컴파일 산출물 (자동 생성) =====
 bin/
+build/
 target/
 *.class
 
-data/*.bin
+# ===== 민감 런타임 데이터 — 절대 커밋 금지 =====
+# 개인키/공개키, 암호문(.bin), 계약 원문(.txt, 계좌번호 등 개인정보 포함)
 data/*.key
+data/*.bin
 data/*.txt
+data/*.enc
 !data/.gitkeep
+
+# ===== 번들 톰캣 서버 런타임 (14MB, 내려받아 쓰는 것 → 깃 불필요) =====
+apache-tomcat-10.1.36/
+
+# ===== Eclipse 웹툴(WST) 자동 생성 메타데이터 =====
+.settings/.jsdtscope
+.settings/org.eclipse.wst.*
+.settings/org.eclipse.wst.jsdt.*
+
+# ===== OS / 에디터 잡파일 =====
+.DS_Store
+Thumbs.db
+*.log
+
+# ===== 보고서 산출물 =====
+# 코드 리뷰 보고서를 깃 저장소에 함께 두려면 아래 줄을 삭제하세요.
+*.docx
