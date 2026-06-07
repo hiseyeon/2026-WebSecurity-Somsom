@@ -212,7 +212,8 @@
             </div>
         </a>
 
-        <a href="reviewContract.jsp" class="card influencer">
+        <%-- [A·B 연동] 검증 전용 진입점(SignContractServlet doGet)을 거쳐 검토 화면으로 --%>
+        <a href="SignContractServlet" class="card influencer">
             <div class="card-icon">
                 <img src="assets/user.png" alt="인플루언서">
             </div>

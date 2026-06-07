@@ -282,7 +282,7 @@
     <div class="btn-row">
         <a href="index.jsp" class="btn btn-home">메인으로</a>
         <% if (isCreate) { %>
-        <a href="reviewContract.jsp" class="btn btn-review">인플루언서 검토 화면으로</a>
+        <a href="SignContractServlet" class="btn btn-review">인플루언서 검토 화면으로</a>
         <% } else if (!isSuccess) { %>
         <a href="index.jsp" class="btn btn-secondary">다시 시작하기</a>
         <% } %>

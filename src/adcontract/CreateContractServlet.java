@@ -115,8 +115,19 @@ public class CreateContractServlet extends HttpServlet {
             request.setAttribute("brandSignaturePath", r.getBrandSignaturePath());
 
             if (r.isSuccess()) {
-                request.setAttribute("contractContent",
-                        ContractFileManager.readContractAsString(dataDir));
+                String contractContent = ContractFileManager.readContractAsString(dataDir);
+                request.setAttribute("contractContent", contractContent);
+
+                // [A·B 연동] B의 result.jsp 표시 규약(resultType + 계약 요약)에 맞춰 전달
+                request.setAttribute("resultType", "createSuccess");
+                request.setAttribute("who", "brand");
+                request.setAttribute("contractId", parseField(contractContent, "contractId"));
+                request.setAttribute("brandName", brandName);
+                request.setAttribute("influencerId", influencerId);
+                request.setAttribute("adFee", adFee);
+            } else {
+                request.setAttribute("resultType", "verifyFail");
+                request.setAttribute("failReason", r.getMessage());
             }
             request.getRequestDispatcher("/result.jsp").forward(request, response);
 
@@ -135,7 +146,24 @@ public class CreateContractServlet extends HttpServlet {
         request.setAttribute("mode", "create");
         request.setAttribute("success", false);
         request.setAttribute("errorMessage", message);
+        // [A·B 연동] B의 result.jsp 는 resultType/failReason 규약을 사용
+        request.setAttribute("resultType", "verifyFail");
+        request.setAttribute("failReason", message);
         request.getRequestDispatcher("/result.jsp").forward(request, response);
+    }
+
+    // [A·B 연동] 계약서 원문(key=value)에서 특정 필드 값 추출
+    private String parseField(String text, String key) {
+        if (text == null) {
+            return null;
+        }
+        for (String line : text.split("\n")) {
+            line = line.trim();
+            if (line.startsWith(key + "=")) {
+                return line.substring(key.length() + 1).trim();
+            }
+        }
+        return null;
     }
 
     // G64: 논리적으로 완전한 검증 (필수 / 길이 / 형식 / 허용값 / 범위)
